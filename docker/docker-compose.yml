@@ -48,6 +48,7 @@ services:
       - ../airflow/logs:/opt/airflow/logs
       - ../scripts:/app/scripts
       - ../data:/app/data
+      - ../sql:/app/sql
     ports:
       - "8080:8080"
     command: webserver
@@ -66,6 +67,7 @@ services:
       - ../airflow/logs:/opt/airflow/logs
       - ../scripts:/app/scripts
       - ../data:/app/data
+      - ../sql:/app/sql
     command: scheduler
 
 volumes:
