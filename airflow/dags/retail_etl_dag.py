@@ -40,4 +40,9 @@ with DAG(
         bash_command="psql -h postgres-server -U postgres -d retail_db -f /app/sql/create_fact_sales.sql"
     )
 
-    clean_data >> dim_product >> dim_date >> dim_country >> fact_sales
+    validate_dwh = BashOperator(
+        task_id="validate_dwh_readiness",
+        bash_command="python /app/scripts/validate_dwh.py"
+    )
+
+    clean_data >> [dim_product, dim_date, dim_country] >> fact_sales >> validate_dwh
